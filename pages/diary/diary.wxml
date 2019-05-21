@@ -1,0 +1,8 @@
+<view>
+  <view class='container'>
+    <view>{{year}}年{{month}}月{{day}}日<van-icon name='arrow-down'/></view>
+    <view>分类<van-icon name='arrow-down'/></view>
+  </view>
+<van-button type="primary">按钮</van-button>
+
+</view>

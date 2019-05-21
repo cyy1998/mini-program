@@ -1,13 +1,32 @@
 {
   "pages": [
-    "pages/index/index",
+    "pages/diary/diary",
     "pages/logs/logs"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
+    "navigationBarTitleText": "共享日记",
     "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+      "color": "#a9b7b7",
+      "selectedColor": "#11cd6e",
+      "borderStyle": "white",
+      "list": [
+        {
+          "selectedIconPath": "images/icon/diary_1.png",
+          "iconPath": "images/icon/diary.png",
+          "pagePath": "pages/diary/diary",
+          "text": "日记"
+        },
+        {
+          "selectedIconPath": "images/icon/user_1.png",
+          "iconPath": "images/icon/user.png",
+          "pagePath": "pages/logs/logs",
+          "text": "用户"
+        }
+      ]
   },
   "sitemapLocation": "sitemap.json"
 }
