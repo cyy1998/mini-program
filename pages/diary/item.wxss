@@ -5,7 +5,7 @@
 	font-size: 40rpx;
 	color: #282828;
 	text-align: center;
-	margin: 59rpx auto 10rpx;
+	margin: 30rpx auto 10rpx;
 }
 .lt-arrow,.rt-arrow{
 	position: absolute;

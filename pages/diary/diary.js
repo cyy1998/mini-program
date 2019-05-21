@@ -120,9 +120,10 @@ Page({
     var animation2=wx.createAnimation({ duration: 200, timingFunction: 'linear',});
     var animation3=wx.createAnimation({ duration: 200, timingFunction: 'linear',});
     var animation4=wx.createAnimation({ duration: 200, timingFunction: 'linear',});
+    var systemInfo = wx.getSystemInfoSync();
     if(this.data.cal_show){      
       animation.rotate(180).step();
-      animation2.translateY(650).step();
+      animation2.translateY(830/750*systemInfo.windowWidth).step();
       animation3.rotate(0).step();
       animation4.translateY(0).step();
     }
@@ -147,11 +148,12 @@ Page({
     var animation2=wx.createAnimation({ duration: 200, timingFunction: 'linear',});
     var animation3=wx.createAnimation({ duration: 200, timingFunction: 'linear',});
     var animation4=wx.createAnimation({ duration: 200, timingFunction: 'linear',});
+    var systemInfo = wx.getSystemInfoSync();
     if(this.data.sel_show){      
       animation.rotate(0).step();
       animation2.translateY(0).step();
       animation3.rotate(180).step();
-      animation4.translateY(650).step();
+      animation4.translateY(830/750*systemInfo.windowWidth).step();
     }
     else{
       animation.rotate(0).step();

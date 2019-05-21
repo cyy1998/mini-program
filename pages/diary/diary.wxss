@@ -21,3 +21,18 @@
   .usermotto {
     margin-top: 200px;
   }
+  #date {
+    font-size: 60rpx;
+  }
+  #write_icon {
+    position: fixed;
+    height: 120rpx;
+    width: 120rpx;
+    bottom: 50rpx;
+    right: 80rpx;
+  }
+
+  #select_box {
+    border: 10rpx;
+    background-color: gray;
+  }
