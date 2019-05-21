@@ -9,7 +9,12 @@ Page({
     isToday: 0,
     isTodayWeek: false,
     todayIndex: 0,
-    cal_show: true
+    cal_show: true,
+    sel_show: true,
+    animationData: {},
+    animationData2: {},
+    animationData3: {},
+    animationData4: {},
   },
   onLoad: function () {
     let now = new Date();
@@ -107,11 +112,60 @@ Page({
       day: today,
       isToday: '' + year + month + today
       })
+    
   },
   showCal: function()
   {
+    var animation=wx.createAnimation({ duration: 200, timingFunction: 'linear',});
+    var animation2=wx.createAnimation({ duration: 200, timingFunction: 'linear',});
+    var animation3=wx.createAnimation({ duration: 200, timingFunction: 'linear',});
+    var animation4=wx.createAnimation({ duration: 200, timingFunction: 'linear',});
+    if(this.data.cal_show){      
+      animation.rotate(180).step();
+      animation2.translateY(650).step();
+      animation3.rotate(0).step();
+      animation4.translateY(0).step();
+    }
+    else{
+      animation.rotate(0).step();
+      animation2.translateY(0).step();
+      animation3.rotate(0).step();
+      animation4.translateY(0).step();
+    }
     this.setData({
-      cal_show: this.data.cal_show? false: true
+      cal_show: !this.data.cal_show,
+      sel_show: true,
+      animationData: animation.export(),
+      animationData2: animation2.export(),
+      animationData3: animation3.export(),
+      animationData4: animation4.export()
+    })
+  },
+  showSel: function()
+  {
+    var animation=wx.createAnimation({ duration: 200, timingFunction: 'linear',});
+    var animation2=wx.createAnimation({ duration: 200, timingFunction: 'linear',});
+    var animation3=wx.createAnimation({ duration: 200, timingFunction: 'linear',});
+    var animation4=wx.createAnimation({ duration: 200, timingFunction: 'linear',});
+    if(this.data.sel_show){      
+      animation.rotate(0).step();
+      animation2.translateY(0).step();
+      animation3.rotate(180).step();
+      animation4.translateY(650).step();
+    }
+    else{
+      animation.rotate(0).step();
+      animation2.translateY(0).step();
+      animation3.rotate(0).step();
+      animation4.translateY(0).step();
+    }
+    this.setData({
+      cal_show: true,
+      sel_show: !this.data.sel_show,
+      animationData: animation.export(),
+      animationData2: animation2.export(),
+      animationData3: animation3.export(),
+      animationData4: animation4.export()
     })
   }
 })

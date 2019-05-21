@@ -1,9 +1,11 @@
 <view>
 	<view id='selector'>
-    <view bind:tap='showCal'>{{year}}年{{month}}月{{day}}日<van-icon name='arrow-down'/></view>
-    <view>分类<van-icon name='arrow-down'/></view>
-  </view>
-  <view class='wrap' id='cal' hidden='{{cal_show}}'>
+		<view bind:tap='showCal'>{{year}}年{{month}}月{{day}}日
+			<image src="../../images/icon/down.png" style='height: 30rpx; width: 30rpx' animation='{{animationData}}'/></view>		
+    <view bind:tap='showSel'>分类
+			<image src="../../images/icon/down.png" style='height: 30rpx; width: 30rpx' animation='{{animationData3}}'/></view>
+	</view>
+  <view id='cal' animation='{{animationData2}}' style='position: absolute; top: -600px;' >
 		<view>
 			<view class='date-show'>
 				<view class='lt-arrow' bindtap='lastMonth'><van-icon name="arrow"/></view>
@@ -21,7 +23,7 @@
 				</view>
 			</view>
 		</view>
-  </view>
-
+	</view>
+	<view animation='{{animationData4}}' style='position: absolute; top: -600px;'>helloworld</view>
 
 </view>
