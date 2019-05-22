@@ -4,6 +4,7 @@
    "van-icon": "../../dist/icon/index",
    "van-collapse": "../../dist/collapse/index",
    "van-collapse-item": "../../dist/collapse-item/index",
-   "van-transition": "../../dist/transition/index"
+   "van-transition": "../../dist/transition/index",
+   "van-tag": "../../dist/tag/index"
   }
 }

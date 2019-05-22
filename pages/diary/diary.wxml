@@ -1,7 +1,7 @@
 <!--日记主界面-->
 <view class="mainFrame">
 	<view id='selector'>
-		<view id='date' bind:tap='showCal'>{{year}}年{{month}}月{{day}}日
+		<view id='date' bind:tap='showCal'>{{month}}月{{day}}日<text style='color: gray;'>{{year}}</text>
 			<image src="../../images/icon/down.png" style='height: 30rpx; width: 30rpx' animation='{{animationData}}' />
 		</view>
 		<view bind:tap='showSel'>分类
@@ -33,12 +33,17 @@
 		</view>
 	</view>
 	<!--============================日历=================================================-->
-	<view id='select_box' animation='{{animationData4}}' style='position: absolute; top: -700rpx;'>helloworld</view>
+	<view id='select_box' animation='{{animationData4}}' style='position: absolute; top: -800rpx;'>
+		<van-button plain type='info'>全部</van-button>
+		<van-button plain>家人</van-button>
+		<van-button plain>恋人</van-button>
+		<van-button plain>朋友</van-button>
+	</view>
 
 	<swiper duration="1000" style="height:900rpx">
 		<block wx:for="{{cards}}" wx:for-index="index">
 			<swiper-item class="vol-swiper-item" bindtap="onItemClick">
-				<view class="card"></view>
+				<view class="card" style="background-color: {{item}};"></view>
 			</swiper-item>
 		</block>
 	</swiper>

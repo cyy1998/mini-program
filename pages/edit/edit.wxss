@@ -1,1 +1,37 @@
 /* pages/edit/edit.wxss */
+.input_view{
+    padding: 10px;
+    width: 100%;
+    font-size: 32rpx;
+}
+.input_view2{
+    padding: 10px;
+    width: 100%;
+    font-size: 32rpx;
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+.upload_image {
+    position: fixed;
+    z-index: 50;
+    bottom: 50rpx;
+    right: 150rpx;
+    height: 60rpx;
+    width: 60rpx;
+}
+.close_img {
+    position: absolute;
+    top: 30rpx;
+    right: 30rpx;
+}
+.img_view{
+    display: flex;
+    position: relative;
+    padding: 4px;
+    background-color: white;
+    align-items: flex-start;
+  }
+  .img_view image{
+    width: 100%;
+    height: 100%;
+  }

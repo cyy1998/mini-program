@@ -5,7 +5,8 @@ Page({
     month: 0,
     day: 0,
     date: ['日', '一', '二', '三', '四', '五', '六'],
-    cards: [1,1,1,1,1,1,1,1,1,1],
+    cards: ['#00FFFF','#FFB6C1','#00FA9A','#F0E68C','#D3D3D3','#FF00FF','#FF8C00'],
+    color: ['#22A7F6','#FFB6C1'],
     dateArr: [],
     isToday: 0,
     isTodayWeek: false,
@@ -154,7 +155,7 @@ Page({
       animation.rotate(0).step();
       animation2.translateY(0).step();
       animation3.rotate(180).step();
-      animation4.translateY(830 / 750 * systemInfo.windowWidth).step();
+      animation4.translateY(980 / 750 * systemInfo.windowWidth).step();
     }
     else {
       animation.rotate(0).step();

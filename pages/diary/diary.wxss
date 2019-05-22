@@ -36,15 +36,24 @@
 
 #select_box {
   border: 10rpx;
-  background-color: gray;
+  background-color:white;
+  z-index: 55;
+  flex-direction: row;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 50rpx orpx;
+  width: 100%;
 }
 #selector {
 
 display: flex;
+flex-wrap: wrap;
 z-index: 60;
+background-color: white;
 flex-direction: row;
 align-items: center;
-justify-content: space-between;
+justify-content: space-around;
 padding: 50rpx 0rpx;
 box-sizing: border-box;
 }
