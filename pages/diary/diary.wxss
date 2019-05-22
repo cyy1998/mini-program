@@ -9,10 +9,10 @@
   
 }
 .card {
-  height: 600rpx;
-  width: 400rpx;
+  height:800rpx;
+  width: 600rpx;
   background-color: red;
-
+  border-radius: 10rpx;
 }
 .vol-swiper-item {
   width: 100%;
@@ -39,7 +39,7 @@
   background-color: gray;
 }
 #selector {
-height: 100%;
+
 display: flex;
 z-index: 60;
 flex-direction: row;

@@ -170,5 +170,10 @@ Page({
       animationData3: animation3.export(),
       animationData4: animation4.export()
     })
+  },
+  editPage: function() {
+    wx.navigateTo({
+      url: "../edit/edit"
+    })
   }
 })
