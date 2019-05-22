@@ -1,45 +1,49 @@
-<view>
+<view class="mainFrame">
 	<view id='selector'>
 		<view id='date' bind:tap='showCal'>{{year}}年{{month}}月{{day}}日
-			<image src="../../images/icon/down.png" style='height: 30rpx; width: 30rpx' animation='{{animationData}}'/></view>		
-    <view bind:tap='showSel'>分类
-			<image src="../../images/icon/down.png" style='height: 30rpx; width: 30rpx' animation='{{animationData3}}'/></view>
+			<image src="../../images/icon/down.png" style='height: 30rpx; width: 30rpx' animation='{{animationData}}' />
+		</view>
+		<view bind:tap='showSel'>分类
+			<image src="../../images/icon/down.png" style='height: 30rpx; width: 30rpx' animation='{{animationData3}}' />
+		</view>
 	</view>
 	<!--============================日历=================================================-->
-  <view id='cal' animation='{{animationData2}}' style='position: absolute; top: -700rpx;' >
+	<view id='cal' animation='{{animationData2}}'>
 		<view>
 			<view class='date-show'>
-				<view class='lt-arrow' bindtap='lastMonth'><van-icon name="arrow"/></view>
+				<view class='lt-arrow' bindtap='lastMonth'>
+					<van-icon name="arrow" />
+				</view>
 				{{year}}年{{month}}月
-				<view class='rt-arrow' bindtap='nextMonth'><van-icon name="arrow"/></view>
+				<view class='rt-arrow' bindtap='nextMonth'>
+					<van-icon name="arrow" />
+				</view>
 			</view>
 		</view>
 		<view class='header'>
 			<view wx:for='{{date}}' class='{{(index == todayIndex) && isTodayWeek ? "weekMark" : ""}}'>{{item}}</view>
 		</view>
 		<view class='date-box'>
-			<view wx:for='{{dateArr}}' class='{{isToday == item.isToday ? "nowDay" : ""}}' data-date='{{item.isToday}}'>			
+			<view wx:for='{{dateArr}}' class='{{isToday == item.isToday ? "nowDay" : ""}}' data-date='{{item.isToday}}'>
 				<view class='date-head'>
 					<view bind:tap='selectDay' data-text='{{item.dateNum}}'>{{item.dateNum}}</view>
 				</view>
 			</view>
-		</view>		
+		</view>
 	</view>
 	<!--============================日历=================================================-->
 	<view id='select_box' animation='{{animationData4}}' style='position: absolute; top: -700rpx;'>helloworld</view>
-	  <scroll-view
-    scroll-y
-    style="height: 200px;"
-    bindscrolltoupper="upper"
-    bindscrolltolower="lower"
-    bindscroll="scroll"
-    scroll-into-view="{{toView}}"
-    scroll-top="{{scrollTop}}"
-  >
-    <view id="green" class="scroll-view-item bc_green"></view>
-    <view id="red" class="scroll-view-item bc_red"></view>
-    <view id="yellow" class="scroll-view-item bc_yellow"></view>
-    <view id="blue" class="scroll-view-item bc_blue"></view>
-  </scroll-view>
-	<view id='write_icon'><van-icon name='add' color='#22A7F6' size='120rpx'></van-icon></view>
+
+	<swiper duration="1000">
+		<block wx:for="{{cards}}" wx:for-index="index">
+			<swiper-item class="vol-swiper-item" bindtap="onItemClick">
+				<view class="card">aaaaaa</view>
+			</swiper-item>
+		</block>
+	</swiper>
+
+	<view id='write_icon'>
+		<van-icon name='add' color='#22A7F6' size='120rpx' />
+	</view>
 </view>
+

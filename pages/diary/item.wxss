@@ -1,3 +1,9 @@
+#cal {
+	position: absolute; 
+	top: -800rpx; 
+	background-color: white;
+	z-index: 55;
+}
 .date-show{
 	position: relative;
 	width: 250rpx;
@@ -5,7 +11,7 @@
 	font-size: 40rpx;
 	color: #282828;
 	text-align: center;
-	margin: 30rpx auto 10rpx;
+	margin: 59rpx auto 10rpx;
 }
 .lt-arrow,.rt-arrow{
 	position: absolute;

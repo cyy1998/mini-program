@@ -1,10 +1,11 @@
-const app=getApp()
+const app = getApp()
 Page({
   data: {
     year: 0,
     month: 0,
     day: 0,
     date: ['日', '一', '二', '三', '四', '五', '六'],
+    cards: [1,1,1,1,1,1,1,1,1,1],
     dateArr: [],
     isToday: 0,
     isTodayWeek: false,
@@ -83,6 +84,9 @@ Page({
       })
     }
   },
+  cardsInit: function() {
+
+  },
   lastMonth: function () {
     //全部时间的月份都是按0~11基准，显示月份才+1
     let year = this.data.month - 2 < 0 ? this.data.year - 1 : this.data.year;
@@ -103,31 +107,29 @@ Page({
     })
     this.dateInit(year, month);
   },
-  selectDay: function(e)
-  {
-    let today=e.target.dataset.text;
-    let year=this.data.year;
-    let month=this.data.month;
+  selectDay: function (e) {
+    let today = e.target.dataset.text;
+    let year = this.data.year;
+    let month = this.data.month;
     this.setData({
       day: today,
       isToday: '' + year + month + today
-      })
-    
+    })
+
   },
-  showCal: function()
-  {
-    var animation=wx.createAnimation({ duration: 200, timingFunction: 'linear',});
-    var animation2=wx.createAnimation({ duration: 200, timingFunction: 'linear',});
-    var animation3=wx.createAnimation({ duration: 200, timingFunction: 'linear',});
-    var animation4=wx.createAnimation({ duration: 200, timingFunction: 'linear',});
+  showCal: function () {
+    var animation = wx.createAnimation({ duration: 200, timingFunction: 'linear', });
+    var animation2 = wx.createAnimation({ duration: 200, timingFunction: 'linear', });
+    var animation3 = wx.createAnimation({ duration: 200, timingFunction: 'linear', });
+    var animation4 = wx.createAnimation({ duration: 200, timingFunction: 'linear', });
     var systemInfo = wx.getSystemInfoSync();
-    if(this.data.cal_show){      
+    if (this.data.cal_show) {
       animation.rotate(180).step();
-      animation2.translateY(830/750*systemInfo.windowWidth).step();
+      animation2.translateY(930 / 750 * systemInfo.windowWidth).step();
       animation3.rotate(0).step();
       animation4.translateY(0).step();
     }
-    else{
+    else {
       animation.rotate(0).step();
       animation2.translateY(0).step();
       animation3.rotate(0).step();
@@ -142,20 +144,19 @@ Page({
       animationData4: animation4.export()
     })
   },
-  showSel: function()
-  {
-    var animation=wx.createAnimation({ duration: 200, timingFunction: 'linear',});
-    var animation2=wx.createAnimation({ duration: 200, timingFunction: 'linear',});
-    var animation3=wx.createAnimation({ duration: 200, timingFunction: 'linear',});
-    var animation4=wx.createAnimation({ duration: 200, timingFunction: 'linear',});
+  showSel: function () {
+    var animation = wx.createAnimation({ duration: 200, timingFunction: 'linear', });
+    var animation2 = wx.createAnimation({ duration: 200, timingFunction: 'linear', });
+    var animation3 = wx.createAnimation({ duration: 200, timingFunction: 'linear', });
+    var animation4 = wx.createAnimation({ duration: 200, timingFunction: 'linear', });
     var systemInfo = wx.getSystemInfoSync();
-    if(this.data.sel_show){      
+    if (this.data.sel_show) {
       animation.rotate(0).step();
       animation2.translateY(0).step();
       animation3.rotate(180).step();
-      animation4.translateY(830/750*systemInfo.windowWidth).step();
+      animation4.translateY(830 / 750 * systemInfo.windowWidth).step();
     }
-    else{
+    else {
       animation.rotate(0).step();
       animation2.translateY(0).step();
       animation3.rotate(0).step();
