@@ -42,7 +42,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  padding: 50rpx orpx;
+  padding: 50rpx 0rpx;
   width: 100%;
 }
 #selector {

@@ -1,7 +1,8 @@
 <!--日记主界面-->
 <view class="mainFrame">
 	<view id='selector'>
-		<view id='date' bind:tap='showCal'>{{month}}月{{day}}日<text style='color: gray;'>{{year}}</text>
+		<view id='date' bind:tap='showCal'>{{month}}月{{day}}日
+			<text style='color: gray;'>{{year}}</text>
 			<image src="../../images/icon/down.png" style='height: 30rpx; width: 30rpx' animation='{{animationData}}' />
 		</view>
 		<view bind:tap='showSel'>分类
@@ -33,23 +34,34 @@
 		</view>
 	</view>
 	<!--============================日历=================================================-->
-	<view id='select_box' animation='{{animationData4}}' style='position: absolute; top: -800rpx;'>
-		<van-button plain type='info'>全部</van-button>
-		<van-button plain>家人</van-button>
-		<van-button plain>恋人</van-button>
-		<van-button plain>朋友</van-button>
+	<view id='select_box' animation='{{animationData4}}' style='position: absolute; top: -850rpx;'>
+		<view style="display: flex; flex-direction: row; align-items: center; justify-content: space-around; width: 100%; margin: 20rpx 0rpx">
+			<van-button plain type='info'>全部</van-button>
+			<van-button plain type='primary'>家人</van-button>
+			<van-button plain type='danger'>恋人</van-button>
+			<van-button plain type='warning'>朋友</van-button>
+		</view>
+		<view style="display: flex; flex-direction: row; align-items: center; justify-content: space-around; width: 100%;">
+			<van-button plain >同学</van-button>
+			<van-button plain type='info'>同事</van-button>
+		</view>
 	</view>
 
 	<swiper duration="1000" style="height:900rpx">
 		<block wx:for="{{cards}}" wx:for-index="index">
 			<swiper-item class="vol-swiper-item" bindtap="onItemClick">
-				<view class="card" style="background-color: {{item}};"></view>
+				<view class="card" style="background-color: {{item}};" />
 			</swiper-item>
 		</block>
 	</swiper>
 
 	<view id='write_icon'>
-		<van-icon name='add' color='#22A7F6' size='120rpx' bind:tap="editPage" />
+		<van-icon
+		 name='add'
+		 color='#22A7F6'
+		 size='120rpx'
+		 bind:tap="editPage"
+		/>
 	</view>
 </view>
 
