@@ -1,0 +1,48 @@
+<!--mine.wxml-->
+
+<template name="tab1">
+    <view>
+    </view>
+</template>
+
+<template name="tab2">
+    <view>
+    </view>
+</template>
+
+<template name="tab3">
+    <view>
+    </view>
+</template>
+
+<template name="tab4">
+    <view>
+    </view>
+</template>
+
+<view>
+  <view class="header">
+    <view class="profile">
+      <image class="avatar" mode="aspectFit" src="{{userInfo.avatar}}"></image>
+      <view class="description">
+        <view class="item">
+          <view style="margin-right:5px">{{userInfo.nickname}}</view>
+          <view>{{userInfo.sex}}</view>
+        </view>
+        <view class="item">{{userInfo.meta}}</view>
+      </view>
+      <image class="add" mode="aspectFill" src="../../images/icons/add.png" bindtap="touchAdd"></image>
+    </view>
+
+    <view class="tablist">
+      <view wx:for="{{tabs}}" wx:for-index="idx" class="tab" bindtap="touchTab" style="{{item.extraStyle}}" id="{{idx}}">
+        <view class="content" style="color:{{highLightIndex == idx ? '#54BFE2' : ''}};">
+          <image class="image" mode="aspectFit" src="{{highLightIndex == idx ? item.iconActive : item.icon}}"></image>
+          <view style="margin-top:2px;">{{item.title}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+    <template is="{{currentTab}}"></template>
+</view>

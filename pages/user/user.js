@@ -1,15 +1,117 @@
-//logs.js
-const util = require('../../utils/util.js')
+// mine.js
+
+// 自定义标签
+var iconPath = "../../images/icons/"
+var tabs = [
+  {
+    "icon": iconPath + "statistic.png",
+    "iconActive": iconPath + "statisticML.png",
+    "title": "统计",
+    "extraStyle": "",
+  },
+  {
+    "icon": iconPath + "collect.png",
+    "iconActive": iconPath + "collectHL.png",
+    "title": "收藏",
+    "extraStyle": "",
+  },
+  {
+    "icon": iconPath + "like.png",
+    "iconActive": iconPath + "likeHL.png",
+    "title": "喜欢",
+    "extraStyle": "",
+  },
+  {
+    "icon": iconPath + "more.png",
+    "iconActive": iconPath + "moreHL.png",
+    "title": "更多",
+    "extraStyle": "border:none;",
+  },
+]
+var userInfo = {
+  avatar: "http://5b0988e595225.cdn.sohucs.com/images/20171030/26ed195281334ba4b1752394b60eb29a.jpeg",
+  nickname: "cxk",
+  sex: "♂",  // 0, male; 1, female
+  meta: '1篇日记',
+}
+
 
 Page({
+
+  // data
   data: {
-    logs: []
+    // 展示的tab标签
+    tabs: tabs,
+
+    // 当前选中的标签
+    currentTab: "tab1",
+
+    // 高亮的标签索引
+    highLightIndex: "0",
+
+    // 模态对话框样式 
+    modalShowStyle: "",
+
+    // 待新建的日记标题
+    diaryTitle: "",
+
+    // TODO 用户信息
+    userInfo: userInfo,
   },
-  onLoad: function () {
+
+  // 隐藏模态框
+  hideModal() {
+    this.setData({ modalShowStyle: "" });
+  },
+
+  // 清除日记标题
+  clearTitle() {
+    this.setData({ diaryTitle: "" });
+  },
+
+  onShow: function () {
+    this.hideModal();
+    this.clearTitle();
+  },
+
+  // 点击tab项事件
+  touchTab: function (event) {
+    var tabIndex = parseInt(event.currentTarget.id);
+    var template = "tab" + (tabIndex + 1).toString();
+
     this.setData({
-      logs: (wx.getStorageSync('logs') || []).map(log => {
-        return util.formatTime(new Date(log))
-      })
+      currentTab: template,
+      highLightIndex: tabIndex.toString()
+    }
+    );
+  },
+
+  // 点击新建日记按钮
+  touchAdd: function (event) {
+    this.setData({
+      modalShowStyle: "opacity:1;pointer-events:auto;"
+    })
+  },
+
+  // 新建日记
+  touchAddNew: function (event) {
+    this.hideModal();
+
+    wx.navigateTo({
+      url: "../new/new?title=" + this.data.diaryTitle,
+    });
+  },
+
+  // 取消标题输入
+  touchCancel: function (event) {
+    this.hideModal();
+    this.clearTitle();
+  },
+
+  // 标题输入事件
+  titleInput: function (event) {
+    this.setData({
+      diaryTitle: event.detail.value,
     })
   }
 })

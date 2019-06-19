@@ -2,13 +2,14 @@
   "pages": [
     "pages/diary/diary",
     "pages/user/user",
-    "pages/edit/edit"
+    "pages/edit/edit",
+    "pages/mine/mine/mine"
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
+    "navigationBarBackgroundColor": "#000080",
     "navigationBarTitleText": "共享日记",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "white"
   },
   "tabBar": {
       "color": "#a9b7b7",
