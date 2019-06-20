@@ -1,178 +1,217 @@
-const app = getApp()
+// pages/Calendar/Calendar.js
+//打卡日历页面
+
 Page({
+
+  /**
+   * 页面的初始数据
+   */
   data: {
-    year: 0,
-    month: 0,
-    day: 0,
-    date: ['日', '一', '二', '三', '四', '五', '六'],
-    cards: ['#00FFFF','#FFB6C1','#00FA9A','#F0E68C','#D3D3D3','#FF00FF','#FF8C00'],
-    color: ['#22A7F6','#FFB6C1'],
-    dateArr: [],
-    isToday: 0,
-    isTodayWeek: false,
-    todayIndex: 0,
-    cal_show: true,
-    sel_show: true,
-    animationData: {},
-    animationData2: {},
-    animationData3: {},
-    animationData4: {},
+    objectId: '',
+    days: [],
+    signUp: [],
+    cur_year: 0,
+    cur_month: 0,
+    count: 0
   },
-  onLoad: function () {
-    let now = new Date();
-    let year = now.getFullYear();
-    let month = now.getMonth() + 1;
-    this.dateInit();
-    this.setData({
-      year: year,
-      month: month,
-      day: now.getDate(),
-      isToday: '' + year + month + now.getDate()
-    })
-  },
-  dateInit: function (setYear, setMonth) {
-    //全部时间的月份都是按0~11基准，显示月份才+1
-    let dateArr = [];						//需要遍历的日历数组数据
-    let arrLen = 0;							//dateArr的数组长度
-    let now = setYear ? new Date(setYear, setMonth) : new Date();
-    let year = setYear || now.getFullYear();
-    let nextYear = 0;
-    let month = setMonth || now.getMonth();					//没有+1方便后面计算当月总天数
-    let nextMonth = (month + 1) > 11 ? 1 : (month + 1);
-    let startWeek = new Date(year + ',' + (month + 1) + ',' + 1).getDay();							//目标月1号对应的星期
-    let dayNums = new Date(year, nextMonth, 0).getDate();				//获取目标月有多少天
-    let obj = {};
-    let num = 0;
 
-    if (month + 1 > 11) {
-      nextYear = year + 1;
-      dayNums = new Date(nextYear, nextMonth, 0).getDate();
-    }
-    arrLen = startWeek + dayNums;
-    for (let i = 0; i < arrLen; i++) {
-      if (i >= startWeek) {
-        num = i - startWeek + 1;
-        obj = {
-          isToday: '' + year + (month + 1) + num,
-          dateNum: num,
-          weight: 5
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    this.setData({ objectId: options.objectId });
+    //获取当前年月  
+    const date = new Date();
+    const cur_year = date.getFullYear();
+    const cur_month = date.getMonth() + 1;
+    const weeks_ch = ['日', '一', '二', '三', '四', '五', '六'];
+    this.calculateEmptyGrids(cur_year, cur_month);
+    this.calculateDays(cur_year, cur_month);
+    //获取当前用户当前任务的签到状态
+    this.onGetSignUp();
+    this.setData({
+      cur_year,
+      cur_month,
+      weeks_ch
+    })
+
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {
+
+  },
+  // 获取当月共多少天
+  getThisMonthDays: function (year, month) {
+    return new Date(year, month, 0).getDate()
+  },
+
+  // 获取当月第一天星期几
+  getFirstDayOfWeek: function (year, month) {
+    return new Date(Date.UTC(year, month - 1, 1)).getDay();
+  },
+
+  // 计算当月1号前空了几个格子，把它填充在days数组的前面
+  calculateEmptyGrids: function (year, month) {
+    var that = this;
+    //计算每个月时要清零
+    that.setData({ days: [] });
+    const firstDayOfWeek = this.getFirstDayOfWeek(year, month);
+    if (firstDayOfWeek > 0) {
+      for (let i = 0; i < firstDayOfWeek; i++) {
+        var obj = {
+          date: null,
+          isSign: false
         }
-      } else {
-        obj = {};
+        that.data.days.push(obj);
       }
-      dateArr[i] = obj;
-    }
-    this.setData({
-      dateArr: dateArr
-    })
-
-    let nowDate = new Date();
-    let nowYear = nowDate.getFullYear();
-    let nowMonth = nowDate.getMonth() + 1;
-    let nowWeek = nowDate.getDay();
-    let getYear = setYear || nowYear;
-    let getMonth = setMonth >= 0 ? (setMonth + 1) : nowMonth;
-
-    if (nowYear == getYear && nowMonth == getMonth) {
       this.setData({
-        isTodayWeek: true,
-        todayIndex: nowWeek
-      })
+        days: that.data.days
+      });
+      //清空
     } else {
       this.setData({
-        isTodayWeek: false,
-        todayIndex: -1
+        days: []
+      });
+    }
+  },
+
+  // 绘制当月天数占的格子，并把它放到days数组中
+  calculateDays: function (year, month) {
+    var that = this;
+    const thisMonthDays = this.getThisMonthDays(year, month);
+    for (let i = 1; i <= thisMonthDays; i++) {
+      var obj = {
+        date: i,
+        isSign: false
+      }
+      that.data.days.push(obj);
+    }
+    this.setData({
+      days: that.data.days
+    });
+  },
+
+  //匹配判断当月与当月哪些日子签到打卡
+  onJudgeSign: function () {
+    var that = this;
+    var signs = that.data.signUp;
+    var daysArr = that.data.days;
+    for (var i = 0; i < signs.length; i++) {
+      var current = new Date(signs[i].date.replace(/-/g, "/"));
+      var year = current.getFullYear();
+      var month = current.getMonth() + 1;
+      var day = current.getDate();
+      day = parseInt(day);
+      for (var j = 0; j < daysArr.length; j++) {
+        //年月日相同并且已打卡
+        if (year == that.data.cur_year && month == that.data.cur_month && daysArr[j].date == day && signs[i].isSign == "今日已打卡") {
+          daysArr[j].isSign = true;
+        }
+      }
+    }
+    that.setData({ days: daysArr });
+  },
+
+  // 切换控制年月，上一个月，下一个月
+  handleCalendar: function (e) {
+    const handle = e.currentTarget.dataset.handle;
+    const cur_year = this.data.cur_year;
+    const cur_month = this.data.cur_month;
+    if (handle === 'prev') {
+      let newMonth = cur_month - 1;
+      let newYear = cur_year;
+      if (newMonth < 1) {
+        newYear = cur_year - 1;
+        newMonth = 12;
+      }
+      this.calculateEmptyGrids(newYear, newMonth);
+      this.calculateDays(newYear, newMonth);
+      this.onGetSignUp();
+      this.setData({
+        cur_year: newYear,
+        cur_month: newMonth
+      })
+    } else {
+      let newMonth = cur_month + 1;
+      let newYear = cur_year;
+      if (newMonth > 12) {
+        newYear = cur_year + 1;
+        newMonth = 1;
+      }
+      this.calculateEmptyGrids(newYear, newMonth);
+      this.calculateDays(newYear, newMonth);
+      this.onGetSignUp();
+      this.setData({
+        cur_year: newYear,
+        cur_month: newMonth
       })
     }
   },
-  cardsInit: function() {
 
+  //获取当前用户该任务的签到数组
+  onGetSignUp: function () {
+    var that = this;
+    var Task_User = Bmob.Object.extend("task_user");
+    var q = new Bmob.Query(Task_User);
+    q.get(that.data.objectId, {
+      success: function (result) {
+        that.setData({
+          signUp: result.get("signUp"),
+          count: result.get("score")
+        });
+        //获取后就判断签到情况
+        that.onJudgeSign();
+      },
+      error: function (object, error) {
+      }
+    });
   },
-  lastMonth: function () {
-    //全部时间的月份都是按0~11基准，显示月份才+1
-    let year = this.data.month - 2 < 0 ? this.data.year - 1 : this.data.year;
-    let month = this.data.month - 2 < 0 ? 11 : this.data.month - 2;
-    this.setData({
-      year: year,
-      month: (month + 1)
-    })
-    this.dateInit(year, month);
-  },
-  nextMonth: function () {
-    //全部时间的月份都是按0~11基准，显示月份才+1
-    let year = this.data.month > 11 ? this.data.year + 1 : this.data.year;
-    let month = this.data.month > 11 ? 0 : this.data.month;
-    this.setData({
-      year: year,
-      month: (month + 1)
-    })
-    this.dateInit(year, month);
-  },
-  selectDay: function (e) {
-    let today = e.target.dataset.text;
-    let year = this.data.year;
-    let month = this.data.month;
-    this.setData({
-      day: today,
-      isToday: '' + year + month + today
-    })
-
-  },
-  showCal: function () {
-    var animation = wx.createAnimation({ duration: 200, timingFunction: 'linear', });
-    var animation2 = wx.createAnimation({ duration: 200, timingFunction: 'linear', });
-    var animation3 = wx.createAnimation({ duration: 200, timingFunction: 'linear', });
-    var animation4 = wx.createAnimation({ duration: 200, timingFunction: 'linear', });
-    var systemInfo = wx.getSystemInfoSync();
-    if (this.data.cal_show) {
-      animation.rotate(180).step();
-      animation2.translateY(930 / 750 * systemInfo.windowWidth).step();
-      animation3.rotate(0).step();
-      animation4.translateY(0).step();
-    }
-    else {
-      animation.rotate(0).step();
-      animation2.translateY(0).step();
-      animation3.rotate(0).step();
-      animation4.translateY(0).step();
-    }
-    this.setData({
-      cal_show: !this.data.cal_show,
-      sel_show: true,
-      animationData: animation.export(),
-      animationData2: animation2.export(),
-      animationData3: animation3.export(),
-      animationData4: animation4.export()
-    })
-  },
-  showSel: function () {
-    var animation = wx.createAnimation({ duration: 200, timingFunction: 'linear', });
-    var animation2 = wx.createAnimation({ duration: 200, timingFunction: 'linear', });
-    var animation3 = wx.createAnimation({ duration: 200, timingFunction: 'linear', });
-    var animation4 = wx.createAnimation({ duration: 200, timingFunction: 'linear', });
-    var systemInfo = wx.getSystemInfoSync();
-    if (this.data.sel_show) {
-      animation.rotate(0).step();
-      animation2.translateY(0).step();
-      animation3.rotate(180).step();
-      animation4.translateY(980 / 750 * systemInfo.windowWidth).step();
-    }
-    else {
-      animation.rotate(0).step();
-      animation2.translateY(0).step();
-      animation3.rotate(0).step();
-      animation4.translateY(0).step();
-    }
-    this.setData({
-      cal_show: true,
-      sel_show: !this.data.sel_show,
-      animationData: animation.export(),
-      animationData2: animation2.export(),
-      animationData3: animation3.export(),
-      animationData4: animation4.export()
-    })
-  },
-  editPage: function() {
+  editPage: function () {
     wx.navigateTo({
       url: "../edit/edit"
     })
