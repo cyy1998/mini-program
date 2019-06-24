@@ -26,12 +26,12 @@
       <image class="avatar" mode="aspectFit" src="{{userInfo.avatar}}"></image>
       <view class="description">
         <view class="item">
-          <view style="margin-right:5px">{{userInfo.nickname}}</view>
+          <view style="margin-right:5px">{{username}}</view>
           <view>{{userInfo.sex}}</view>
         </view>
         <view class="item">{{userInfo.meta}}</view>
       </view>
-      <image class="add" mode="aspectFill" src="../../images/icons/add.png" bindtap="touchAdd"></image>
+
     </view>
 
     <view class="tablist">

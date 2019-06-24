@@ -49,7 +49,7 @@ Page({
     wx.switchTab({
       url: '../../user/user',
     })
-    
+    //console.log(app.appData.userinfo)
     // app.appData.userinfo = { username: this.data.username, password: this.data.password };
   },
 

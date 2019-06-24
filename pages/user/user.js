@@ -28,7 +28,7 @@ var tabs = [
     "extraStyle": "border:none;",
   },
 ]
-var app = getApp()
+var app = getApp();
 var userInfo = {
   avatar: "http://5b0988e595225.cdn.sohucs.com/images/20171030/26ed195281334ba4b1752394b60eb29a.jpeg",
   nickname: app.appData.userinfo.username,
@@ -44,7 +44,7 @@ Page({
   data: {
     // 展示的tab标签
     tabs: tabs,
-    username:'null',
+    username:app.appData.userinfo.username,
     // 当前选中的标签
     currentTab: "tab1",
 
@@ -61,13 +61,14 @@ Page({
     userInfo: userInfo,
   },
   onLoad:function(options){
-    if(app.appData.userInfo==null){
-      wx.navigateTo({
+    if(app.appData.userinfo.username==null){
+      wx.redirectTo({
         url: '../mine/mine/mine',
       })
     }
     else{
       this.setData({username:app.appData.userinfo.username})
+      console.log(app.appData.userinfo.username);
     }
   },
 
@@ -85,7 +86,27 @@ Page({
     this.hideModal();
     this.clearTitle();
   },
+  onReady: function () {
 
+  },
+  /**
+   * 生命周期函数--监听页面显示
+   */
+
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload: function () {
+
+  },
   // 点击tab项事件
   touchTab: function (event) {
     var tabIndex = parseInt(event.currentTarget.id);
@@ -98,32 +119,4 @@ Page({
     );
   },
 
-  // 点击新建日记按钮
-  touchAdd: function (event) {
-    this.setData({
-      modalShowStyle: "opacity:1;pointer-events:auto;"
-    })
-  },
-
-  // 新建日记
-  touchAddNew: function (event) {
-    this.hideModal();
-
-    wx.navigateTo({
-      url: "../new/new?title=" + this.data.diaryTitle,
-    });
-  },
-
-  // 取消标题输入
-  touchCancel: function (event) {
-    this.hideModal();
-    this.clearTitle();
-  },
-
-  // 标题输入事件
-  titleInput: function (event) {
-    this.setData({
-      diaryTitle: event.detail.value,
-    })
-  }
 })
