@@ -12,7 +12,7 @@ Page({
     signUp: [],
     cur_year: 0,
     cur_month: 0,
-    count: 0
+    count: ""
   },
 
   /**
@@ -27,7 +27,7 @@ Page({
     const weeks_ch = ['日', '一', '二', '三', '四', '五', '六'];
     this.calculateEmptyGrids(cur_year, cur_month);
     this.calculateDays(cur_year, cur_month);
-    //获取当前用户当前任务的签到状态
+    //获取当前用户当前天的完成状态
     this.onGetSignUp();
     this.setData({
       cur_year,
@@ -136,7 +136,7 @@ Page({
     });
   },
 
-  //匹配判断当月与当月哪些日子签到打卡
+  //匹配判断当月与当月哪些日子写过日记
   onJudgeSign: function () {
     var that = this;
     var signs = that.data.signUp;
@@ -148,8 +148,8 @@ Page({
       var day = current.getDate();
       day = parseInt(day);
       for (var j = 0; j < daysArr.length; j++) {
-        //年月日相同并且已打卡
-        if (year == that.data.cur_year && month == that.data.cur_month && daysArr[j].date == day && signs[i].isSign == "今日已打卡") {
+        //年月日相同并且已写日记
+        if (year == that.data.cur_year && month == that.data.cur_month && daysArr[j].date == day && signs[i].isSign == "今日已写日记") {
           daysArr[j].isSign = true;
         }
       }
@@ -193,7 +193,7 @@ Page({
     }
   },
 
-  //获取当前用户该任务的签到数组
+  //获取当前用户日记数组
   onGetSignUp: function () {
     var that = this;
     var Task_User = Bmob.Object.extend("task_user");
@@ -204,7 +204,7 @@ Page({
           signUp: result.get("signUp"),
           count: result.get("score")
         });
-        //获取后就判断签到情况
+        //获取后就判断当天日记情况
         that.onJudgeSign();
       },
       error: function (object, error) {

@@ -1,5 +1,4 @@
-/* pages/Calendar/Calendar.wxss */
-/* 打卡日历 */
+
 .all{
   margin-top: 20rpx;
 }

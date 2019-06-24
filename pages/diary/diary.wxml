@@ -1,5 +1,5 @@
 <!--pages/Calendar/Calendar.wxml-->
-<!-- 打卡日历页面 -->
+<!-- 日历页面 -->
 <view class='all'>
   <view class="bar">
     <!-- 上一个月 -->
@@ -34,7 +34,7 @@
               <view wx:if="{{days[j+k].isSign == true}}" style='background-color:#83C75D' class='cell'>
                 <text>{{days[j+k].date}}</text>
               </view>
-              <!-- 当前日期未签到 -->
+              <!-- 当前日期未写过日记 -->
               <view wx:else>
                 <text>{{days[j+k].date}}</text>
               </view>
@@ -46,10 +46,10 @@
   </view>
   <!-- 累计数量 -->
   <view class='count'>
-    <text>截至目前，你已经写了</text>
+    <text>上一次由cxk于</text>
     <view class='daynumber'>
-    <text class='number'>{{count}}</text>
-    <text class='diary_number'>篇日记</text>
+    <text class='number'>{{count}}</text> 
+    <text class='diary_number'>修改</text>
     </view>    
   </view>
 </view>

@@ -28,12 +28,14 @@ var tabs = [
     "extraStyle": "border:none;",
   },
 ]
+var app = getApp()
 var userInfo = {
   avatar: "http://5b0988e595225.cdn.sohucs.com/images/20171030/26ed195281334ba4b1752394b60eb29a.jpeg",
-  nickname: "cxk",
+  nickname: app.appData.userinfo.username,
   sex: "♂",  // 0, male; 1, female
   meta: '1篇日记',
 }
+
 
 
 Page({
@@ -42,7 +44,7 @@ Page({
   data: {
     // 展示的tab标签
     tabs: tabs,
-
+    username:'null',
     // 当前选中的标签
     currentTab: "tab1",
 
@@ -57,6 +59,16 @@ Page({
 
     // TODO 用户信息
     userInfo: userInfo,
+  },
+  onLoad:function(options){
+    if(app.appData.userInfo==null){
+      wx.navigateTo({
+        url: '../mine/mine/mine',
+      })
+    }
+    else{
+      this.setData({username:app.appData.userinfo.username})
+    }
   },
 
   // 隐藏模态框
